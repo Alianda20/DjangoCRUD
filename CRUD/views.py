@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Student
@@ -39,3 +39,26 @@ def deleteData(request,id):
     d.delete()
     return redirect('/')
     # return render(request, 'index.html')
+def handleSignup(request):
+    if request.method=='POST':
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+
+        myuser=User.objects.create_user(username,password)
+        myuser.save()
+    return render(request,'signup.html')
+def handlelogin(request):
+    if request.method=='POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        myuser=authenticate(username=username,password=password)
+
+        if myuser is not None:
+            login(request,myuser)
+            return redirect('/')
+        else:
+            return redirect('/login')
+    return render(request,'login.html')
+def handleLogout(request):
+    logout(request)
+    return redirect('/signup')

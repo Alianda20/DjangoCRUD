@@ -23,5 +23,9 @@ urlpatterns = [
     path('',views.home,name='index'),
     path('insert',views.insertData,name='insertData'),
     path('update/<id>',views.updateData,name='updateData'),
-    path('delete/<id>',views.deleteData,name='deleteData')
+    path('delete/<id>',views.deleteData,name='deleteData'),
+
+    path('login', views.handlelogin,name='handlelogin'),
+    path('logout', views.handleLogout,name='handlelogout'),
+    path('signup', views.handleSignup,name='handlesignup')
 ]
